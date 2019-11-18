@@ -33,6 +33,7 @@ public class BroadcastD extends BroadcastReceiver {
                 "스마트폰 보급률이 증가하면서 일자목 환자도 그에 비례해 증가하고 있다.",
                 "턱을 괴거나 다리를 꼬는 습관은 척추 측만증의 결정적 원인이 된다."
         };
+        String ment = mentzip[(int) (Math.random() * 14)];
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
             final String strTitle = context.getString(R.string.app_name);
@@ -43,9 +44,9 @@ public class BroadcastD extends BroadcastReceiver {
                 notificationManager.createNotificationChannel(channel);
             }
             Notification notification = new NotificationCompat.Builder(context, strId)
-                    .setContentTitle("New Message")
-                    .setContentText("You've received new messages.")
-                    .setSmallIcon(R.drawable.logo)
+                    .setContentTitle("척추요정")
+                    .setStyle(new NotificationCompat.BigTextStyle().bigText(ment))
+                    .setSmallIcon(R.drawable.appicon)
                     .setChannelId(strId)
                     .build();
             notificationManager.notify(1,notification);
@@ -56,11 +57,11 @@ public class BroadcastD extends BroadcastReceiver {
             NotificationManager notificationmanager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, new Intent(context, MainActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
             Notification.Builder builder = new Notification.Builder(context);
-            String ment = mentzip[(int) (Math.random() * 14)];
-            builder.setSmallIcon(R.drawable.logo).setTicker("HETT").setWhen(System.currentTimeMillis())
-                    .setNumber(1).setContentTitle("척추요정이 출몰했습니다").setContentText(ment)
-                    .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE).setContentIntent(pendingIntent).setAutoCancel(true);
 
+            builder.setSmallIcon(R.drawable.appicon).setTicker("HETT").setWhen(System.currentTimeMillis())
+                    .setNumber(1).setContentTitle("척추요정").setStyle(new Notification.BigTextStyle().bigText(ment))
+                    .setPriority(Notification.PRIORITY_MAX)
+                    .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE).setContentIntent(pendingIntent).setAutoCancel(true);
             notificationmanager.notify(1, builder.build());
         }
     }
